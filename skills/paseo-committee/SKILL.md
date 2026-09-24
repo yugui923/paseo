@@ -35,7 +35,7 @@ Override only when the user explicitly asks for different members.
   This is analysis only. Do NOT edit, create, or delete any files. Do NOT write code.
   ```
 
-- **Trust the wait.** Do not poll, send hurry-ups, or interrupt. GPT-5.4 can reason 15–30 minutes; Opus does extended thinking. Long waits mean it found something worth thinking about.
+- **Trust the wait.** Do not poll, send hurry-ups, or interrupt. High-reasoning agents can take 15–30 minutes. Long waits can be normal for difficult analysis.
 - **You are the middleman.** Drive plan → implement → review without yielding to the user, except for divergences that need their call.
 
 ## Phase 1: Plan

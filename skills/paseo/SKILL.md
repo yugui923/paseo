@@ -35,7 +35,7 @@ paseo script stop <name> [--cwd <path> | --workspace <workspace-id>]
 
 ## Agents
 
-**`create_agent`** — required: `title`, `provider` (`claude/opus`, `codex/gpt-5.4`, …), `initialPrompt`. Optional: `workspaceId`, `notifyOnFinish`, `settings`, `labels`. Returns `{ agentId, workspaceId, … }`.
+**`create_agent`** — required: `title`, `provider` (an identifier from the user or preferences), `initialPrompt`. Optional: `workspaceId`, `notifyOnFinish`, `settings`, `labels`. Returns `{ agentId, workspaceId, … }`.
 
 Initial runtime settings live under `settings`: `modeId`, `thinkingOptionId`, and provider-specific `features`. For Codex fast mode, pass `settings: { features: { "fast_mode": true } }` when creating the agent.
 
@@ -75,7 +75,7 @@ Schedules have the full list/inspect/update/pause/resume/run-once/log/delete sur
 
 ## Models
 
-`claude/sonnet` (default), `claude/opus` (harder reasoning), `codex/gpt-5.4` (frontier coding), `claude/haiku` (tests only).
+Provider catalogs change over time. Use the exact provider requested by the user; otherwise resolve one from orchestration preferences by role and required capabilities.
 
 ## Orchestration preferences
 
@@ -91,14 +91,14 @@ Categories: `impl`, `ui`, `research`, `planning`, `audit`. Skills pick the categ
 ```json
 {
   "providers": {
-    "impl": "codex/gpt-5.4",
-    "ui": "claude/opus",
-    "research": "codex/gpt-5.4",
-    "planning": "codex/gpt-5.4",
-    "audit": "codex/gpt-5.4"
+    "impl": "<implementation-capable-provider>",
+    "ui": "<design-capable-provider>",
+    "research": "<research-capable-provider>",
+    "planning": "<high-reasoning-provider>",
+    "audit": "<independent-review-provider>"
   },
   "preferences": [
-    "Claude Opus is the right choice for anything artistic or human-skill-oriented: copywriting, naming, UX copy, visual design, styling. Codex is the workhorse for mechanical work."
+    "Choose by task capability, context needs, and an independent provider family for verification."
   ]
 }
 ```
@@ -121,8 +121,8 @@ The CLI and tools use the same ownership semantics even where their syntax diffe
 paseo workspace create --isolation worktree --mode branch-off --new-branch fix-x --base main
 paseo workspace create --isolation worktree --mode checkout-branch --branch existing-work
 paseo workspace create --isolation worktree --mode checkout-pr --pr-number 42
-paseo run --provider codex/gpt-5.4 --mode full-access --workspace <workspace-id> "<prompt>"
-paseo run --provider codex/gpt-5.4 --mode full-access --new-workspace worktree --worktree-mode branch-off --new-branch fix-x --base main "<prompt>"
+paseo run --provider <provider> --mode full-access --workspace <workspace-id> "<prompt>"
+paseo run --provider <provider> --mode full-access --new-workspace worktree --worktree-mode branch-off --new-branch fix-x --base main "<prompt>"
 paseo send <agent-id> "<follow-up>"
 paseo ls
 paseo schedule create --cron "*/15 * * * *" "ping main build"

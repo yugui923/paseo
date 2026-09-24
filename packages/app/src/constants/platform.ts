@@ -4,7 +4,7 @@ import { isElectronRuntime, isElectronRuntimeMac } from "@/desktop/host";
 // ---------------------------------------------------------------------------
 // Runtime environment constants
 //
-// These are the ONLY platform gates in the app. See CLAUDE.md for the
+// These are the ONLY platform gates in the app. See AGENTS.md for the
 // decision matrix on when to use each one.
 //
 // Default is cross-platform. Gate only when you must:
